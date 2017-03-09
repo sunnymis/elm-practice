@@ -1,0 +1,25 @@
+{
+  "name": "elm-tutorials",
+  "version": "1.0.0",
+  "description": "Example code to learn Elm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "chokidar 'src/**/*.elm' -c 'elm make src/hello-world.elm --warn --output elm.compiled.js' --initial",
+    "watchCC": "chokidar 'src/**/*.elm' -c 'elm make src/calorie-counter.elm --warn --output elm.compiled.js' --initial",
+    "watch1": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/Functions/Exercise1.elm --warn --output elm.compiled.js' --initial",
+    "watch2": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/Functions2/Exercise1.elm --warn --output elm.compiled.js' --initial",
+    "watch3": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/TypeAnnotations/Exercise1.elm --warn --output elm.compiled.js' --initial"    
+  },
+  "keywords": [
+    "elm"
+  ],
+  "author": "Sunny Mistry",
+  "license": "ISC",
+  "devDependencies": {
+    "chokidar-cli": "^1.2.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-elm": "^2.0.0"
+  }
+}
