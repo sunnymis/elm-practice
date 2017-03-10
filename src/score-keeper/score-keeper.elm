@@ -5,96 +5,149 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
--- Model
+-- model
 
 
 type alias Model =
-    { calories : Int
-    , input : Int
-    , error : Maybe String
+    { players : List Player
+    , name : String
+    , playerId : Maybe Int
+    , plays : List Play
+    }
+
+
+type alias Player =
+    { id : Int
+    , name : String
+    , points : Int
+    }
+
+
+type alias Play =
+    { id : Int
+    , playerId : Int
+    , name : String
+    , points : Int
     }
 
 
 initModel : Model
 initModel =
-    Model 0 0 Nothing
-
-
-
--- Update
+    { players = []
+    , name = ""
+    , playerId = Nothing
+    , plays = []
+    }
 
 
 type Msg
-    = AddCalorie
-    | Clear
+    = Edit Player
+    | Score Player Int
     | Input String
+    | Save
+    | Cancel
+    | DeletePlay Play
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        AddCalorie ->
+        Input name ->
+            { model | name = name }
+
+        Cancel ->
+            { model | name = "" }
+
+        Save ->
             let
-                currCalories =
-                    model.calories
+                newPlayer =
+                    Player 1 model.name 0
+
+                playerList =
+                    List.append [ newPlayer ] model.players
             in
-                if model.input == 0 then
-                    { model | calories = currCalories + 1 }
+                if (String.isEmpty model.name) then
+                    model
                 else
-                    { model
-                        | calories = currCalories + model.input
-                        , input = 0
-                    }
+                    save model
 
-        Clear ->
-            initModel
-
-        Input val ->
-            case String.toInt val of
-                Ok input ->
-                    { model
-                        | input = input
-                        , error = Nothing
-                    }
-
-                Err err ->
-                    { model
-                        | input = 0
-                        , error = Just err
-                    }
+        _ ->
+            model
 
 
+save : Model -> Model
+save model =
+    case model.playerId of
+        Just id ->
+            edit model id
 
--- View
+        Nothing ->
+            add model
+
+
+edit : Model -> Int -> Model
+edit model id =
+    let
+        newPlayers =
+            List.map
+                (\player ->
+                    if player.id == id then
+                        { player | name = model.name }
+                    else
+                        player
+                )
+                model.players
+
+        newPlays =
+            List.map
+                (\play ->
+                    if play.playerId == id then
+                        { play | name = model.name }
+                    else
+                        play
+                )
+                model.plays
+    in
+        { model | players = newPlayers, plays = newPlays, name = "", playerId = Nothing }
+
+
+add : Model -> Model
+add model =
+    let
+        player =
+            Player (List.length model.players) model.name 0
+
+        newPlayers =
+            player :: model.players
+    in
+        { model | players = newPlayers, name = "" }
+
+
+
+-- view
 
 
 view : Model -> Html Msg
 view model =
-    div [ class "container" ]
-        [ h3 []
-            [ text ("Total CaloriesL " ++ (toString model.calories)) ]
-        , input
+    div [ class "scoreboard" ]
+        [ h1 [] [ text "Score Keeper" ]
+        , playerForm model
+        , p [] [ text (toString model) ]
+        ]
+
+
+playerForm : Model -> Html Msg
+playerForm model =
+    Html.form [ onSubmit Save ]
+        [ input
             [ type_ "text"
+            , placeholder "Add/Edit Player..."
             , onInput Input
-            , value
-                (if model.input == 0 then
-                    ""
-                 else
-                    toString model.input
-                )
+            , value model.name
             ]
             []
-        , div [] [ text (Maybe.withDefault "" model.error) ]
-        , button
-            [ type_ "button"
-            , onClick AddCalorie
-            ]
-            [ text "Add" ]
-        , button
-            [ type_ "button"
-            , onClick Clear
-            ]
-            [ text "Clear" ]
+        , button [ type_ "submit" ] [ text "Save" ]
+        , button [ type_ "button", onClick Cancel ] [ text "Cancel" ]
         ]
 
 
