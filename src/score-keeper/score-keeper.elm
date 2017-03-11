@@ -75,7 +75,10 @@ update msg model =
             score model player points
 
         Edit player ->
-            { model | name = player.name, playerId = Just player.id }
+            { model
+                | name = player.name
+                , playerId = Just player.id
+            }
 
         DeletePlay play ->
             let
@@ -150,7 +153,12 @@ edit model id =
                 )
                 model.plays
     in
-        { model | players = newPlayers, plays = newPlays, name = "", playerId = Nothing }
+        { model
+            | players = newPlayers
+            , plays = newPlays
+            , name = ""
+            , playerId = Nothing
+        }
 
 
 add : Model -> Model
@@ -162,7 +170,10 @@ add model =
         newPlayers =
             player :: model.players
     in
-        { model | players = newPlayers, name = "" }
+        { model
+            | players = newPlayers
+            , name = ""
+        }
 
 
 
@@ -177,6 +188,29 @@ view model =
         , playerForm model
         , playsSection model
         ]
+
+
+editInputClass : Maybe Int -> String
+editInputClass editPlayerId =
+    case editPlayerId of
+        Just id ->
+            "edit"
+
+        Nothing ->
+            ""
+
+
+editPlayerClass : Maybe Int -> Player -> String
+editPlayerClass editPlayerId player =
+    case editPlayerId of
+        Just id ->
+            if id == player.id then
+                "edit"
+            else
+                ""
+
+        Nothing ->
+            ""
 
 
 playsSection : Model -> Html Msg
@@ -233,15 +267,15 @@ playerList model =
     --ul [] (List.map player model.players)
     model.players
         |> List.sortBy .name
-        |> List.map player
+        |> List.map (player model.playerId)
         |> ul []
 
 
-player : Player -> Html Msg
-player player =
+player : Maybe Int -> Player -> Html Msg
+player editPlayerId player =
     li []
         [ i [ class "edit", onClick (Edit player) ] []
-        , div [] [ text player.name ]
+        , div [ class (editPlayerClass editPlayerId player) ] [ text player.name ]
         , button [ type_ "button", onClick (Score player 2) ] [ text "2pt" ]
         , button [ type_ "button", onClick (Score player 3) ] [ text "3pt" ]
         , div [] [ text (toString player.points) ]
@@ -266,6 +300,7 @@ playerForm model =
     Html.form [ onSubmit Save ]
         [ input
             [ type_ "text"
+            , class (editInputClass model.playerId)
             , placeholder "Add/Edit Player..."
             , onInput Input
             , value model.name

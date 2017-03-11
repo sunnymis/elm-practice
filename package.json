@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "chokidar 'src/**/*.elm' -c 'elm make src/hello-world.elm --warn --output elm.compiled.js' --initial",
+    "watch": "chokidar 'src/**/*.elm' -c 'elm make src/Main.elm --warn --output src/elm.compiled.js' --initial",
     "watchCC": "chokidar 'src/**/*.elm' -c 'elm make src/calorie-counter.elm --warn --output elm.compiled.js' --initial",
     "watchSK": "chokidar 'src/**/*.elm' -c 'elm make src/score-keeper/score-keeper.elm --warn --debug --output src/score-keeper/elm.compiled.js' --initial",
     "watch1": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/Functions/Exercise1.elm --warn --output elm.compiled.js' --initial",
     "watch2": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/Functions2/Exercise1.elm --warn --output elm.compiled.js' --initial",
-    "watch3": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/TypeAnnotations/Exercise1.elm --warn --output elm.compiled.js' --initial"    
+    "watch3": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/TypeAnnotations/Exercise1.elm --warn --output elm.compiled.js' --initial",
+    "watch4": "chokidar 'src/**/*.elm' -c 'elm make src/password-form.elm --warn --output elm.compiled.js' --initial"
   },
   "keywords": [
     "elm"

@@ -15,8 +15,8 @@ type alias Model =
     }
 
 
-initModel : Model
-initModel =
+model : Model
+model =
     Model 0 0 Nothing
 
 
@@ -47,7 +47,7 @@ update msg model =
                     }
 
         Clear ->
-            initModel
+            model
 
         Input val ->
             case String.toInt val of
@@ -101,7 +101,7 @@ view model =
 main : Program Never Model Msg
 main =
     Html.beginnerProgram
-        { model = initModel
+        { model = model
         , view = view
         , update = update
         }

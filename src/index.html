@@ -1,0 +1,25 @@
+<html>
+
+        <head>
+                <meta charset="UTF-8">
+                <title>Practice</title>
+                <link rel="stylesheet" href="styles.css"><!-- Put your styles in folder with index.html -->
+        </head>
+
+        <body>
+             <div id="my-app"></div>
+             <div id="cc"></div>
+        </body>
+
+
+        <!-- Put the name of your app here (my sources place in `src` forder) -->
+        <script type="text/javascript" src="elm.compiled.js"></script>
+
+        <script type="text/javascript">
+             var node = document.getElementById('my-app');
+             var ccnode = document.getElementById('cc');
+              var app = Elm.Main.embed(node);
+              var cc = Elm.Main.CalorieCounter.embed(ccnode);
+        </script>
+
+</html>
