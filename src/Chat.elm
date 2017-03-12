@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 import WebSocket
 
 
-main : Program Never Model Msg
+main : Program Never Model MyMsg
 main =
     Html.program
         { init = init
@@ -26,7 +26,7 @@ type alias Model =
     }
 
 
-init : ( Model, Cmd Msg )
+init : ( Model, Cmd MyMsg )
 init =
     ( Model "" [], Cmd.none )
 
@@ -35,13 +35,13 @@ init =
 -- update
 
 
-type Msg
+type MyMsg
     = Input String
     | Send
     | NewMessage String
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : MyMsg -> Model -> ( Model, Cmd MyMsg )
 update msg model =
     case msg of
         Input newContent ->
@@ -60,7 +60,7 @@ update msg model =
 -- subscriptions
 
 
-subscriptions : Model -> Sub Msg
+subscriptions : Model -> Sub MyMsg
 subscriptions model =
     WebSocket.listen "ws://echo.websocket.org" NewMessage
 
@@ -69,7 +69,7 @@ subscriptions model =
 -- view
 
 
-view : Model -> Html Msg
+view : Model -> Html MyMsg
 view model =
     div []
         [ input [ onInput Input, value model.input ] []
@@ -78,6 +78,6 @@ view model =
         ]
 
 
-viewMessage : String -> Html Msg
+viewMessage : String -> Html MyMsg
 viewMessage msg =
     div [] [ text msg ]
