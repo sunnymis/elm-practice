@@ -1,10 +1,7 @@
 module Demo exposing (..)
 
 import Html exposing (..)
-
-
---import Html.Events exposing (..)
-
+import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 
 
@@ -27,7 +24,8 @@ type EmploymentType
 
 
 type Msg
-    = Save
+    = NameChange String
+    | Save
 
 
 type alias Employee =
@@ -54,7 +52,24 @@ model =
 
 update : Msg -> Model -> Model
 update msg model =
-    model
+    case msg of
+        NameChange newName ->
+            updateName model newName
+
+        Save ->
+            model
+
+
+updateName : Model -> String -> Model
+updateName model newName =
+    let
+        employee =
+            model.employee
+
+        newEmployee =
+            { employee | name = newName }
+    in
+        { model | employee = newEmployee }
 
 
 
@@ -64,14 +79,16 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ Html.form []
+        [ Html.form [ onSubmit Save ]
             [ input
                 [ placeholder "Name"
                 , value model.employee.name
+                , onInput NameChange
                 ]
                 []
             , (checkbox model "Full Time")
             , (checkbox model "Student")
+            , button [ type_ "submit" ] [ text "SAVE" ]
             ]
         ]
 
