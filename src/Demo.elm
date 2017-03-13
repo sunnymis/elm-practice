@@ -23,11 +23,6 @@ type EmploymentType
     | Student
 
 
-type Msg
-    = NameChange String
-    | Save
-
-
 type alias Employee =
     { name : String
     , project : String
@@ -50,14 +45,27 @@ model =
 -- update
 
 
+type Msg
+    = NameChange String
+    | Save
+    | FullTimeChecked
+    | StudentChecked
+
+
 update : Msg -> Model -> Model
 update msg model =
     case msg of
         NameChange newName ->
             updateName model newName
 
+        FullTimeChecked ->
+            updateRadio msg model
+
+        StudentChecked ->
+            updateRadio msg model
+
         Save ->
-            model
+            { model | employees = model.employee :: model.employees }
 
 
 updateName : Model -> String -> Model
@@ -70,6 +78,33 @@ updateName model newName =
             { employee | name = newName }
     in
         { model | employee = newEmployee }
+
+
+updateRadio : Msg -> Model -> Model
+updateRadio msg model =
+    case msg of
+        FullTimeChecked ->
+            let
+                employee =
+                    model.employee
+
+                newEmployee =
+                    { employee | employmentType = FullTime }
+            in
+                { model | employee = newEmployee }
+
+        StudentChecked ->
+            let
+                employee =
+                    model.employee
+
+                newEmployee =
+                    { employee | employmentType = Student }
+            in
+                { model | employee = newEmployee }
+
+        _ ->
+            model
 
 
 
@@ -86,19 +121,32 @@ view model =
                 , onInput NameChange
                 ]
                 []
-            , (checkbox model "Full Time")
-            , (checkbox model "Student")
+            , (radio model FullTimeChecked FullTime "Full Time")
+            , (radio model StudentChecked Student "Student")
             , button [ type_ "submit" ] [ text "SAVE" ]
+            , ul [] (List.map employeeList model.employees)
             ]
         ]
 
 
-checkbox : Model -> String -> Html Msg
-checkbox model str =
+radio : Model -> Msg -> EmploymentType -> String -> Html Msg
+radio model msg et str =
     label []
         [ input
-            [ type_ "checkbox"
+            [ type_ "radio"
+            , name "employmentType"
+            , onClick msg
+            , checked (model.employee.employmentType == et)
             ]
             []
         , text str
+        ]
+
+
+employeeList : Employee -> Html Msg
+employeeList employee =
+    li []
+        [ h2 [] [ text employee.name ]
+        , h2 [] [ text employee.project ]
+        , h2 [] [ text (toString employee.employmentType) ]
         ]
