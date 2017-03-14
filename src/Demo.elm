@@ -24,7 +24,8 @@ type EmploymentType
 
 
 type alias Employee =
-    { name : String
+    { id : Int
+    , name : String
     , project : String
     , employmentType : EmploymentType
     }
@@ -39,6 +40,8 @@ type alias Project =
 type alias Model =
     { employee : Employee
     , project : Project
+    , isEditing : Bool
+    , uniqueID : Int
     , employees : List Employee
     , projects : List Project
     }
@@ -46,7 +49,18 @@ type alias Model =
 
 model : Model
 model =
-    Model (Employee "" "" FullTime) (Project "" "") [] [ (Project "WhoZoo" "Simon"), (Project "CodePilot" "Ian"), (Project "PiggyBank" "Tom"), (Project "FreshTracks" "Matt"), (Project "KnowThings" "AK") ]
+    Model
+        (Employee 0 "" "" FullTime)
+        (Project "" "")
+        False
+        0
+        []
+        [ (Project "WhoZoo" "Simon")
+        , (Project "CodePilot" "Ian")
+        , (Project "PiggyBank" "Tom")
+        , (Project "FreshTracks" "Matt")
+        , (Project "KnowThings" "AK")
+        ]
 
 
 
@@ -59,6 +73,8 @@ type Msg
     | FullTimeChecked
     | StudentChecked
     | SelectProject String
+    | Delete Employee
+    | Edit Employee
 
 
 update : Msg -> Model -> Model
@@ -74,7 +90,7 @@ update msg model =
             updateRadio msg model
 
         Save ->
-            { model | employees = model.employee :: model.employees, employee = Employee "" "" FullTime, project = Project "" "" }
+            save model
 
         SelectProject selectedProject ->
             let
@@ -91,6 +107,56 @@ update msg model =
                     { employee | project = newProject.name }
             in
                 { model | project = newProject, employee = newEmployee }
+
+        Delete employee ->
+            let
+                newEmployees =
+                    List.filter (\e -> e.name /= employee.name) model.employees
+            in
+                { model | employees = newEmployees }
+
+        Edit editEmployee ->
+            { model | employee = editEmployee, isEditing = True }
+
+
+save : Model -> Model
+save model =
+    if model.isEditing then
+        let
+            newEmployees =
+                List.map
+                    (\e ->
+                        if e.id == model.employee.id then
+                            { e
+                                | name = model.employee.name
+                                , project = model.employee.project
+                                , employmentType = model.employee.employmentType
+                            }
+                        else
+                            e
+                    )
+                    model.employees
+        in
+            { model
+                | employees = newEmployees
+                , isEditing = False
+                , employee = Employee 0 "" "" FullTime
+                , project = Project "" ""
+            }
+    else
+        let
+            employee =
+                model.employee
+
+            newEmployee =
+                { employee | id = model.uniqueID }
+        in
+            { model
+                | employees = newEmployee :: model.employees
+                , employee = Employee 0 "" "" FullTime
+                , project = Project "" ""
+                , uniqueID = model.uniqueID + 1
+            }
 
 
 resolveProject : Maybe Project -> Project
@@ -159,11 +225,11 @@ view model =
             , select [ onInput SelectProject ]
                 (model.projects
                     |> List.sortBy .name
-                    |> List.map projectView
+                    |> List.map (projectView model)
                     |> addDefaultSelect model
                 )
-            , (radioView FullTimeChecked "Full Time")
-            , (radioView StudentChecked "Student")
+            , (radioView model FullTimeChecked "Full Time" FullTime)
+            , (radioView model StudentChecked "Student" Student)
             , button [ type_ "submit" ] [ text "SAVE" ]
             , ul [] (List.map employeeList model.employees)
             ]
@@ -179,18 +245,19 @@ addDefaultSelect model projectList =
         default :: projectList
 
 
-projectView : Project -> Html Msg
-projectView project =
-    option [ value project.name ] [ text project.name ]
+projectView : Model -> Project -> Html Msg
+projectView model project =
+    option [ value project.name, selected (model.employee.project == project.name) ] [ text project.name ]
 
 
-radioView : Msg -> String -> Html Msg
-radioView msg str =
+radioView : Model -> Msg -> String -> EmploymentType -> Html Msg
+radioView model msg str et =
     label []
         [ input
             [ type_ "radio"
             , name "employmentType"
             , onClick msg
+            , checked (model.employee.employmentType == et)
             ]
             []
         , text str
@@ -203,4 +270,6 @@ employeeList employee =
         [ h2 [] [ text employee.name ]
         , h2 [] [ text employee.project ]
         , h2 [] [ text (toString employee.employmentType) ]
+        , p [ onClick (Delete employee) ] [ text "Delete" ]
+        , p [ onClick (Edit employee) ] [ text "Edit" ]
         ]
