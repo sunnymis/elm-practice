@@ -214,10 +214,11 @@ updateRadio msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ class "container" ]
         [ Html.form [ onSubmit Save ]
             [ input
-                [ placeholder "Name"
+                [ class "form-control"
+                , placeholder "Name"
                 , value model.employee.name
                 , onInput NameChange
                 ]
@@ -230,8 +231,8 @@ view model =
                 )
             , (radioView model FullTimeChecked "Full Time" FullTime)
             , (radioView model StudentChecked "Student" Student)
-            , button [ type_ "submit" ] [ text "SAVE" ]
-            , ul [] (List.map employeeList model.employees)
+            , button [ class "btn btn-primary", type_ "submit" ] [ text "SAVE" ]
+            , table [] (employeeListHeader :: (List.map employeeList model.employees))
             ]
         ]
 
@@ -264,12 +265,21 @@ radioView model msg str et =
         ]
 
 
+employeeListHeader : Html Msg
+employeeListHeader =
+    tr []
+        [ th [] [ text "Employee" ]
+        , th [] [ text "Project" ]
+        , th [] [ text "Employment Type" ]
+        ]
+
+
 employeeList : Employee -> Html Msg
 employeeList employee =
-    li []
-        [ h2 [] [ text employee.name ]
-        , h2 [] [ text employee.project ]
-        , h2 [] [ text (toString employee.employmentType) ]
-        , p [ onClick (Delete employee) ] [ text "Delete" ]
-        , p [ onClick (Edit employee) ] [ text "Edit" ]
+    tr []
+        [ td [] [ text employee.name ]
+        , td [] [ text employee.project ]
+        , td [] [ text (toString employee.employmentType) ]
+        , td [ onClick (Delete employee) ] [ text "Delete" ]
+        , td [ onClick (Edit employee) ] [ text "Edit" ]
         ]
