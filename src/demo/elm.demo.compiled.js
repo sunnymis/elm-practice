@@ -8260,287 +8260,65 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _user$project$Demo$employeeListHeader = A2(
-	_elm_lang$html$Html$tr,
-	{ctor: '[]'},
-	{
-		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$th,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Employee'),
-				_1: {ctor: '[]'}
-			}),
-		_1: {
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$th,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Project'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$th,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('Employment Type'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
-		}
-	});
-var _user$project$Demo$radioView = F4(
-	function (model, msg, str, et) {
-		return A2(
-			_elm_lang$html$Html$label,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$input,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$type_('radio'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$name('employmentType'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(msg),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$checked(
-										_elm_lang$core$Native_Utils.eq(model.employee.employmentType, et)),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(str),
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _user$project$Demo$projectView = F2(
-	function (model, project) {
-		return A2(
-			_elm_lang$html$Html$option,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$value(project.name),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$selected(
-						_elm_lang$core$Native_Utils.eq(model.employee.project, project.name)),
-					_1: {ctor: '[]'}
-				}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(project.name),
-				_1: {ctor: '[]'}
-			});
-	});
-var _user$project$Demo$addDefaultSelect = F2(
-	function (model, projectList) {
-		var $default = A2(
-			_elm_lang$html$Html$option,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$value(''),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$selected(
-						_elm_lang$core$Native_Utils.eq(model.project.name, '')),
-					_1: {ctor: '[]'}
-				}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Select Project'),
-				_1: {ctor: '[]'}
-			});
-		return {ctor: '::', _0: $default, _1: projectList};
-	});
-var _user$project$Demo$updateName = F2(
-	function (model, newName) {
-		var employee = model.employee;
-		var newEmployee = _elm_lang$core$Native_Utils.update(
-			employee,
-			{name: newName});
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{employee: newEmployee});
-	});
-var _user$project$Demo$Employee = F4(
+var _user$project$Model$Employee = F4(
 	function (a, b, c, d) {
 		return {id: a, name: b, project: c, employmentType: d};
 	});
-var _user$project$Demo$Project = F2(
+var _user$project$Model$Project = F2(
 	function (a, b) {
 		return {name: a, founder: b};
 	});
-var _user$project$Demo$resolveProject = function (project) {
-	var _p0 = project;
-	if (_p0.ctor === 'Nothing') {
-		return A2(_user$project$Demo$Project, '', '');
-	} else {
-		return _p0._0;
-	}
-};
-var _user$project$Demo$Model = F6(
+var _user$project$Model$Model = F6(
 	function (a, b, c, d, e, f) {
 		return {employee: a, project: b, isEditing: c, uniqueID: d, employees: e, projects: f};
 	});
-var _user$project$Demo$Student = {ctor: 'Student'};
-var _user$project$Demo$FullTime = {ctor: 'FullTime'};
-var _user$project$Demo$model = A6(
-	_user$project$Demo$Model,
-	A4(_user$project$Demo$Employee, 0, '', '', _user$project$Demo$FullTime),
-	A2(_user$project$Demo$Project, '', ''),
+var _user$project$Model$Student = {ctor: 'Student'};
+var _user$project$Model$FullTime = {ctor: 'FullTime'};
+var _user$project$Model$model = A6(
+	_user$project$Model$Model,
+	A4(_user$project$Model$Employee, 0, '', '', _user$project$Model$FullTime),
+	A2(_user$project$Model$Project, '', ''),
 	false,
 	0,
 	{ctor: '[]'},
 	{
 		ctor: '::',
-		_0: A2(_user$project$Demo$Project, 'WhoZoo', 'Simon'),
+		_0: A2(_user$project$Model$Project, 'WhoZoo', 'Simon'),
 		_1: {
 			ctor: '::',
-			_0: A2(_user$project$Demo$Project, 'CodePilot', 'Ian'),
+			_0: A2(_user$project$Model$Project, 'CodePilot', 'Ian'),
 			_1: {
 				ctor: '::',
-				_0: A2(_user$project$Demo$Project, 'PiggyBank', 'Tom'),
+				_0: A2(_user$project$Model$Project, 'PiggyBank', 'Tom'),
 				_1: {
 					ctor: '::',
-					_0: A2(_user$project$Demo$Project, 'FreshTracks', 'Matt'),
+					_0: A2(_user$project$Model$Project, 'FreshTracks', 'Matt'),
 					_1: {
 						ctor: '::',
-						_0: A2(_user$project$Demo$Project, 'KnowThings', 'AK'),
+						_0: A2(_user$project$Model$Project, 'KnowThings', 'AK'),
 						_1: {ctor: '[]'}
 					}
 				}
 			}
 		}
 	});
-var _user$project$Demo$save = function (model) {
-	if (model.isEditing) {
-		var newEmployees = A2(
-			_elm_lang$core$List$map,
-			function (e) {
-				return _elm_lang$core$Native_Utils.eq(e.id, model.employee.id) ? _elm_lang$core$Native_Utils.update(
-					e,
-					{name: model.employee.name, project: model.employee.project, employmentType: model.employee.employmentType}) : e;
-			},
-			model.employees);
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{
-				employees: newEmployees,
-				isEditing: false,
-				employee: A4(_user$project$Demo$Employee, 0, '', '', _user$project$Demo$FullTime),
-				project: A2(_user$project$Demo$Project, '', '')
-			});
-	} else {
-		var employee = model.employee;
-		var newEmployee = _elm_lang$core$Native_Utils.update(
-			employee,
-			{id: model.uniqueID});
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{
-				employees: {ctor: '::', _0: newEmployee, _1: model.employees},
-				employee: A4(_user$project$Demo$Employee, 0, '', '', _user$project$Demo$FullTime),
-				project: A2(_user$project$Demo$Project, '', ''),
-				uniqueID: model.uniqueID + 1
-			});
-	}
-};
-var _user$project$Demo$updateRadio = F2(
-	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
-			case 'FullTimeChecked':
-				var employee = model.employee;
-				var newEmployee = _elm_lang$core$Native_Utils.update(
-					employee,
-					{employmentType: _user$project$Demo$FullTime});
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{employee: newEmployee});
-			case 'StudentChecked':
-				var employee = model.employee;
-				var newEmployee = _elm_lang$core$Native_Utils.update(
-					employee,
-					{employmentType: _user$project$Demo$Student});
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{employee: newEmployee});
-			default:
-				return model;
-		}
-	});
-var _user$project$Demo$update = F2(
-	function (msg, model) {
-		var _p2 = msg;
-		switch (_p2.ctor) {
-			case 'NameChange':
-				return A2(_user$project$Demo$updateName, model, _p2._0);
-			case 'FullTimeChecked':
-				return A2(_user$project$Demo$updateRadio, msg, model);
-			case 'StudentChecked':
-				return A2(_user$project$Demo$updateRadio, msg, model);
-			case 'Save':
-				return _user$project$Demo$save(model);
-			case 'SelectProject':
-				var employee = model.employee;
-				var newProject = _user$project$Demo$resolveProject(
-					_elm_lang$core$List$head(
-						A2(
-							_elm_lang$core$List$filter,
-							function (p) {
-								return _elm_lang$core$Native_Utils.eq(p.name, _p2._0);
-							},
-							model.projects)));
-				var newEmployee = _elm_lang$core$Native_Utils.update(
-					employee,
-					{project: newProject.name});
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{project: newProject, employee: newEmployee});
-			case 'Delete':
-				var newEmployees = A2(
-					_elm_lang$core$List$filter,
-					function (e) {
-						return !_elm_lang$core$Native_Utils.eq(e.name, _p2._0.name);
-					},
-					model.employees);
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{employees: newEmployees});
-			default:
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{employee: _p2._0, isEditing: true});
-		}
-	});
-var _user$project$Demo$Edit = function (a) {
+var _user$project$Model$Edit = function (a) {
 	return {ctor: 'Edit', _0: a};
 };
-var _user$project$Demo$Delete = function (a) {
+var _user$project$Model$Delete = function (a) {
 	return {ctor: 'Delete', _0: a};
 };
-var _user$project$Demo$employeeList = function (employee) {
+var _user$project$Model$SelectProject = function (a) {
+	return {ctor: 'SelectProject', _0: a};
+};
+var _user$project$Model$StudentChecked = {ctor: 'StudentChecked'};
+var _user$project$Model$FullTimeChecked = {ctor: 'FullTimeChecked'};
+var _user$project$Model$Save = {ctor: 'Save'};
+var _user$project$Model$NameChange = function (a) {
+	return {ctor: 'NameChange', _0: a};
+};
+
+var _user$project$View$employeeList = function (employee) {
 	return A2(
 		_elm_lang$html$Html$tr,
 		{ctor: '[]'},
@@ -8582,7 +8360,7 @@ var _user$project$Demo$employeeList = function (employee) {
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html_Events$onClick(
-									_user$project$Demo$Delete(employee)),
+									_user$project$Model$Delete(employee)),
 								_1: {ctor: '[]'}
 							},
 							{
@@ -8597,7 +8375,7 @@ var _user$project$Demo$employeeList = function (employee) {
 								{
 									ctor: '::',
 									_0: _elm_lang$html$Html_Events$onClick(
-										_user$project$Demo$Edit(employee)),
+										_user$project$Model$Edit(employee)),
 									_1: {ctor: '[]'}
 								},
 								{
@@ -8612,16 +8390,120 @@ var _user$project$Demo$employeeList = function (employee) {
 			}
 		});
 };
-var _user$project$Demo$SelectProject = function (a) {
-	return {ctor: 'SelectProject', _0: a};
-};
-var _user$project$Demo$StudentChecked = {ctor: 'StudentChecked'};
-var _user$project$Demo$FullTimeChecked = {ctor: 'FullTimeChecked'};
-var _user$project$Demo$Save = {ctor: 'Save'};
-var _user$project$Demo$NameChange = function (a) {
-	return {ctor: 'NameChange', _0: a};
-};
-var _user$project$Demo$view = function (model) {
+var _user$project$View$employeeListHeader = A2(
+	_elm_lang$html$Html$tr,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$th,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Employee'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$th,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Project'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$th,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Employment Type'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	});
+var _user$project$View$radioView = F4(
+	function (model, msg, str, et) {
+		return A2(
+			_elm_lang$html$Html$label,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$input,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$type_('radio'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$name('employmentType'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(msg),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$checked(
+										_elm_lang$core$Native_Utils.eq(model.employee.employmentType, et)),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(str),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$View$projectView = F2(
+	function (model, project) {
+		return A2(
+			_elm_lang$html$Html$option,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$value(project.name),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$selected(
+						_elm_lang$core$Native_Utils.eq(model.employee.project, project.name)),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(project.name),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$View$addDefaultSelect = F2(
+	function (model, projectList) {
+		var $default = A2(
+			_elm_lang$html$Html$option,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$value(''),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$selected(
+						_elm_lang$core$Native_Utils.eq(model.project.name, '')),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Select Project'),
+				_1: {ctor: '[]'}
+			});
+		return {ctor: '::', _0: $default, _1: projectList};
+	});
+var _user$project$View$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -8635,7 +8517,7 @@ var _user$project$Demo$view = function (model) {
 				_elm_lang$html$Html$form,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Events$onSubmit(_user$project$Demo$Save),
+					_0: _elm_lang$html$Html_Events$onSubmit(_user$project$Model$Save),
 					_1: {ctor: '[]'}
 				},
 				{
@@ -8667,7 +8549,7 @@ var _user$project$Demo$view = function (model) {
 										_0: _elm_lang$html$Html_Attributes$value(model.employee.name),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onInput(_user$project$Demo$NameChange),
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$Model$NameChange),
 											_1: {ctor: '[]'}
 										}
 									}
@@ -8686,17 +8568,17 @@ var _user$project$Demo$view = function (model) {
 										_0: _elm_lang$html$Html_Attributes$id('select'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onInput(_user$project$Demo$SelectProject),
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$Model$SelectProject),
 											_1: {ctor: '[]'}
 										}
 									}
 								},
 								A2(
-									_user$project$Demo$addDefaultSelect,
+									_user$project$View$addDefaultSelect,
 									model,
 									A2(
 										_elm_lang$core$List$map,
-										_user$project$Demo$projectView(model),
+										_user$project$View$projectView(model),
 										A2(
 											_elm_lang$core$List$sortBy,
 											function (_) {
@@ -8714,10 +8596,10 @@ var _user$project$Demo$view = function (model) {
 									},
 									{
 										ctor: '::',
-										_0: A4(_user$project$Demo$radioView, model, _user$project$Demo$FullTimeChecked, 'Full Time', _user$project$Demo$FullTime),
+										_0: A4(_user$project$View$radioView, model, _user$project$Model$FullTimeChecked, 'Full Time', _user$project$Model$FullTime),
 										_1: {
 											ctor: '::',
-											_0: A4(_user$project$Demo$radioView, model, _user$project$Demo$StudentChecked, 'Student', _user$project$Demo$Student),
+											_0: A4(_user$project$View$radioView, model, _user$project$Model$StudentChecked, 'Student', _user$project$Model$Student),
 											_1: {ctor: '[]'}
 										}
 									}),
@@ -8750,8 +8632,8 @@ var _user$project$Demo$view = function (model) {
 											{ctor: '[]'},
 											{
 												ctor: '::',
-												_0: _user$project$Demo$employeeListHeader,
-												_1: A2(_elm_lang$core$List$map, _user$project$Demo$employeeList, model.employees)
+												_0: _user$project$View$employeeListHeader,
+												_1: A2(_elm_lang$core$List$map, _user$project$View$employeeList, model.employees)
 											}),
 										_1: {ctor: '[]'}
 									}
@@ -8763,8 +8645,129 @@ var _user$project$Demo$view = function (model) {
 			_1: {ctor: '[]'}
 		});
 };
+
+var _user$project$Update$updateRadio = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'FullTimeChecked':
+				var employee = model.employee;
+				var newEmployee = _elm_lang$core$Native_Utils.update(
+					employee,
+					{employmentType: _user$project$Model$FullTime});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{employee: newEmployee});
+			case 'StudentChecked':
+				var employee = model.employee;
+				var newEmployee = _elm_lang$core$Native_Utils.update(
+					employee,
+					{employmentType: _user$project$Model$Student});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{employee: newEmployee});
+			default:
+				return model;
+		}
+	});
+var _user$project$Update$updateName = F2(
+	function (model, newName) {
+		var employee = model.employee;
+		var newEmployee = _elm_lang$core$Native_Utils.update(
+			employee,
+			{name: newName});
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{employee: newEmployee});
+	});
+var _user$project$Update$resolveProject = function (project) {
+	var _p1 = project;
+	if (_p1.ctor === 'Nothing') {
+		return A2(_user$project$Model$Project, '', '');
+	} else {
+		return _p1._0;
+	}
+};
+var _user$project$Update$save = function (model) {
+	if (model.isEditing) {
+		var newEmployees = A2(
+			_elm_lang$core$List$map,
+			function (e) {
+				return _elm_lang$core$Native_Utils.eq(e.id, model.employee.id) ? _elm_lang$core$Native_Utils.update(
+					e,
+					{name: model.employee.name, project: model.employee.project, employmentType: model.employee.employmentType}) : e;
+			},
+			model.employees);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				employees: newEmployees,
+				isEditing: false,
+				employee: A4(_user$project$Model$Employee, 0, '', '', _user$project$Model$FullTime),
+				project: A2(_user$project$Model$Project, '', '')
+			});
+	} else {
+		var employee = model.employee;
+		var newEmployee = _elm_lang$core$Native_Utils.update(
+			employee,
+			{id: model.uniqueID});
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				employees: {ctor: '::', _0: newEmployee, _1: model.employees},
+				employee: A4(_user$project$Model$Employee, 0, '', '', _user$project$Model$FullTime),
+				project: A2(_user$project$Model$Project, '', ''),
+				uniqueID: model.uniqueID + 1
+			});
+	}
+};
+var _user$project$Update$update = F2(
+	function (msg, model) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
+			case 'NameChange':
+				return A2(_user$project$Update$updateName, model, _p2._0);
+			case 'FullTimeChecked':
+				return A2(_user$project$Update$updateRadio, msg, model);
+			case 'StudentChecked':
+				return A2(_user$project$Update$updateRadio, msg, model);
+			case 'Save':
+				return _user$project$Update$save(model);
+			case 'SelectProject':
+				var employee = model.employee;
+				var newProject = _user$project$Update$resolveProject(
+					_elm_lang$core$List$head(
+						A2(
+							_elm_lang$core$List$filter,
+							function (p) {
+								return _elm_lang$core$Native_Utils.eq(p.name, _p2._0);
+							},
+							model.projects)));
+				var newEmployee = _elm_lang$core$Native_Utils.update(
+					employee,
+					{project: newProject.name});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{project: newProject, employee: newEmployee});
+			case 'Delete':
+				var newEmployees = A2(
+					_elm_lang$core$List$filter,
+					function (e) {
+						return !_elm_lang$core$Native_Utils.eq(e.name, _p2._0.name);
+					},
+					model.employees);
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{employees: newEmployees});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{employee: _p2._0, isEditing: true});
+		}
+	});
+
 var _user$project$Demo$main = _elm_lang$html$Html$beginnerProgram(
-	{model: _user$project$Demo$model, update: _user$project$Demo$update, view: _user$project$Demo$view})();
+	{model: _user$project$Model$model, update: _user$project$Update$update, view: _user$project$View$view})();
 
 var Elm = {};
 Elm['Demo'] = Elm['Demo'] || {};
