@@ -216,22 +216,29 @@ view : Model -> Html Msg
 view model =
     div [ class "container" ]
         [ Html.form [ onSubmit Save ]
-            [ input
-                [ class "form-control"
+            [ h2 [ class "ui header" ] [ text "Edit Employees" ]
+            , input
+                [ class "input-field"
                 , placeholder "Name"
                 , value model.employee.name
                 , onInput NameChange
                 ]
                 []
-            , select [ onInput SelectProject ]
+            , select
+                [ class "ui search selection dropdown"
+                , id "select"
+                , onInput SelectProject
+                ]
                 (model.projects
                     |> List.sortBy .name
                     |> List.map (projectView model)
                     |> addDefaultSelect model
                 )
-            , (radioView model FullTimeChecked "Full Time" FullTime)
-            , (radioView model StudentChecked "Student" Student)
-            , button [ class "btn btn-primary", type_ "submit" ] [ text "SAVE" ]
+            , div [ class "radio-controls" ]
+                [ (radioView model FullTimeChecked "Full Time" FullTime)
+                , (radioView model StudentChecked "Student" Student)
+                ]
+            , button [ class "ui primary button", id "save", type_ "submit" ] [ text "SAVE" ]
             , table [] (employeeListHeader :: (List.map employeeList model.employees))
             ]
         ]

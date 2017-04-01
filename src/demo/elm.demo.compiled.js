@@ -8641,63 +8641,101 @@ var _user$project$Demo$view = function (model) {
 				{
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$input,
+						_elm_lang$html$Html$h2,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('form-control'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$placeholder('Name'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$value(model.employee.name),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Events$onInput(_user$project$Demo$NameChange),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
+							_0: _elm_lang$html$Html_Attributes$class('ui header'),
+							_1: {ctor: '[]'}
 						},
-						{ctor: '[]'}),
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Edit Employees'),
+							_1: {ctor: '[]'}
+						}),
 					_1: {
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$select,
+							_elm_lang$html$Html$input,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onInput(_user$project$Demo$SelectProject),
-								_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html_Attributes$class('input-field'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$placeholder('Name'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$value(model.employee.name),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$Demo$NameChange),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
 							},
-							A2(
-								_user$project$Demo$addDefaultSelect,
-								model,
-								A2(
-									_elm_lang$core$List$map,
-									_user$project$Demo$projectView(model),
-									A2(
-										_elm_lang$core$List$sortBy,
-										function (_) {
-											return _.name;
-										},
-										model.projects)))),
+							{ctor: '[]'}),
 						_1: {
 							ctor: '::',
-							_0: A4(_user$project$Demo$radioView, model, _user$project$Demo$FullTimeChecked, 'Full Time', _user$project$Demo$FullTime),
+							_0: A2(
+								_elm_lang$html$Html$select,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('ui search selection dropdown'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$id('select'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$Demo$SelectProject),
+											_1: {ctor: '[]'}
+										}
+									}
+								},
+								A2(
+									_user$project$Demo$addDefaultSelect,
+									model,
+									A2(
+										_elm_lang$core$List$map,
+										_user$project$Demo$projectView(model),
+										A2(
+											_elm_lang$core$List$sortBy,
+											function (_) {
+												return _.name;
+											},
+											model.projects)))),
 							_1: {
 								ctor: '::',
-								_0: A4(_user$project$Demo$radioView, model, _user$project$Demo$StudentChecked, 'Student', _user$project$Demo$Student),
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('radio-controls'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: A4(_user$project$Demo$radioView, model, _user$project$Demo$FullTimeChecked, 'Full Time', _user$project$Demo$FullTime),
+										_1: {
+											ctor: '::',
+											_0: A4(_user$project$Demo$radioView, model, _user$project$Demo$StudentChecked, 'Student', _user$project$Demo$Student),
+											_1: {ctor: '[]'}
+										}
+									}),
 								_1: {
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$button,
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$class('btn btn-primary'),
+											_0: _elm_lang$html$Html_Attributes$class('ui primary button'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$type_('submit'),
-												_1: {ctor: '[]'}
+												_0: _elm_lang$html$Html_Attributes$id('save'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$type_('submit'),
+													_1: {ctor: '[]'}
+												}
 											}
 										},
 										{

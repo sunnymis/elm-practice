@@ -5,6 +5,16 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
+main : Program Never Model Msg
+main =
+    Html.beginnerProgram
+        { model = model
+        , view = view
+        , update = update
+        }
+
+
+
 -- Model
 
 
@@ -47,7 +57,7 @@ update msg model =
                     }
 
         Clear ->
-            model
+            { model | calories = 0, input = 0 }
 
         Input val ->
             case String.toInt val of
@@ -71,17 +81,11 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div [ class "container" ]
-        [ h3 []
-            [ text ("Total CaloriesL " ++ (toString model.calories)) ]
+        [ h3 [] [ text ("Total CaloriesL " ++ (toString model.calories)) ]
         , input
             [ type_ "text"
             , onInput Input
-            , value
-                (if model.input == 0 then
-                    ""
-                 else
-                    toString model.input
-                )
+            , value (getValue model)
             ]
             []
         , div [] [ text (Maybe.withDefault "" model.error) ]
@@ -98,10 +102,9 @@ view model =
         ]
 
 
-main : Program Never Model Msg
-main =
-    Html.beginnerProgram
-        { model = model
-        , view = view
-        , update = update
-        }
+getValue : Model -> String
+getValue model =
+    if model.input == 0 then
+        ""
+    else
+        toString model.input

@@ -1,14 +1,50 @@
-/* input {
-  padding: 10px;
-  border: solid 1px #dcdcdc;
-  transition: box-shadow 0.3s, border 0.3s;
- */
+
+form {
+  width: 50%;
+}
+
+input {
+  padding: .67857143em 1em;
+  background: #FFF;
+  border: 1px solid rgba(34,36,38,.15);
+  color: rgba(0,0,0,.87);
+  border-radius: .28571429rem;
+  width: 30%;
+  display:  block;
+  margin-left: 50px;
+}
+
+select {
+ width: 30%;
+ display:  block;
+ margin: 20px 0 0 50px; 
+}
+
+.radio-controls label {
+    display: inline-block;
+    width: 90px;
+    height: 20px;
+    text-align: center;
+    vertical-align: top;
+    padding-top: 40px;
+    margin-left:  50px;
+}
+.radio-controls input {
+    display: block;
+    margin: 0 auto -40px;
+}
+
+#save {
+  margin: 30px 0 50px 50px;
+}
+
 
 table {
     width: 100%;
     text-align: center;
     border-collapse: collapse;
     border-spacing: 0;
+    margin-left: 50px;
 }
 th {
     font-family: 'Helvetica', 'sans-serif';
