@@ -1,7 +1,6 @@
 module Update exposing (update)
 
-{-| This library fills a bunch of important niches in Elm. A `Maybe` can help
-you with optional arguments, error handling, and records with optional fields.
+{-| The update function for the Demo app.
 
 # Definition
 @docs update
@@ -12,14 +11,19 @@ import Model exposing (..)
 
 
 {-| An update
-
-    update ['e','l','m'] == "elm"
 -}
 update : Msg -> Model -> Model
 update msg model =
     case msg of
         NameChange newName ->
-            updateName model newName
+            let
+                employee =
+                    model.employee
+
+                newEmployee =
+                    { employee | name = newName }
+            in
+                { model | employee = newEmployee }
 
         FullTimeChecked ->
             updateRadio msg model
@@ -49,12 +53,39 @@ update msg model =
         Delete employee ->
             let
                 newEmployees =
-                    List.filter (\e -> e.name /= employee.name) model.employees
+                    List.filter (\e -> e.id /= employee.id) model.employees
             in
                 { model | employees = newEmployees }
 
         Edit editEmployee ->
             { model | employee = editEmployee, isEditing = True }
+
+
+updateRadio : Msg -> Model -> Model
+updateRadio msg model =
+    case msg of
+        FullTimeChecked ->
+            let
+                employee =
+                    model.employee
+
+                newEmployee =
+                    { employee | employmentType = FullTime }
+            in
+                { model | employee = newEmployee }
+
+        StudentChecked ->
+            let
+                employee =
+                    model.employee
+
+                newEmployee =
+                    { employee | employmentType = Student }
+            in
+                { model | employee = newEmployee }
+
+        _ ->
+            model
 
 
 save : Model -> Model
@@ -105,42 +136,3 @@ resolveProject project =
 
         Just proj ->
             proj
-
-
-updateName : Model -> String -> Model
-updateName model newName =
-    let
-        employee =
-            model.employee
-
-        newEmployee =
-            { employee | name = newName }
-    in
-        { model | employee = newEmployee }
-
-
-updateRadio : Msg -> Model -> Model
-updateRadio msg model =
-    case msg of
-        FullTimeChecked ->
-            let
-                employee =
-                    model.employee
-
-                newEmployee =
-                    { employee | employmentType = FullTime }
-            in
-                { model | employee = newEmployee }
-
-        StudentChecked ->
-            let
-                employee =
-                    model.employee
-
-                newEmployee =
-                    { employee | employmentType = Student }
-            in
-                { model | employee = newEmployee }
-
-        _ ->
-            model

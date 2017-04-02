@@ -8650,46 +8650,12 @@ var _user$project$View$view = function (model) {
 		});
 };
 
-var _user$project$Update$updateRadio = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
-			case 'FullTimeChecked':
-				var employee = model.employee;
-				var newEmployee = _elm_lang$core$Native_Utils.update(
-					employee,
-					{employmentType: _user$project$Model$FullTime});
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{employee: newEmployee});
-			case 'StudentChecked':
-				var employee = model.employee;
-				var newEmployee = _elm_lang$core$Native_Utils.update(
-					employee,
-					{employmentType: _user$project$Model$Student});
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{employee: newEmployee});
-			default:
-				return model;
-		}
-	});
-var _user$project$Update$updateName = F2(
-	function (model, newName) {
-		var employee = model.employee;
-		var newEmployee = _elm_lang$core$Native_Utils.update(
-			employee,
-			{name: newName});
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{employee: newEmployee});
-	});
 var _user$project$Update$resolveProject = function (project) {
-	var _p1 = project;
-	if (_p1.ctor === 'Nothing') {
+	var _p0 = project;
+	if (_p0.ctor === 'Nothing') {
 		return A2(_user$project$Model$Project, '', '');
 	} else {
-		return _p1._0;
+		return _p0._0;
 	}
 };
 var _user$project$Update$save = function (model) {
@@ -8725,12 +8691,42 @@ var _user$project$Update$save = function (model) {
 			});
 	}
 };
+var _user$project$Update$updateRadio = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'FullTimeChecked':
+				var employee = model.employee;
+				var newEmployee = _elm_lang$core$Native_Utils.update(
+					employee,
+					{employmentType: _user$project$Model$FullTime});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{employee: newEmployee});
+			case 'StudentChecked':
+				var employee = model.employee;
+				var newEmployee = _elm_lang$core$Native_Utils.update(
+					employee,
+					{employmentType: _user$project$Model$Student});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{employee: newEmployee});
+			default:
+				return model;
+		}
+	});
 var _user$project$Update$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
 		switch (_p2.ctor) {
 			case 'NameChange':
-				return A2(_user$project$Update$updateName, model, _p2._0);
+				var employee = model.employee;
+				var newEmployee = _elm_lang$core$Native_Utils.update(
+					employee,
+					{name: _p2._0});
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{employee: newEmployee});
 			case 'FullTimeChecked':
 				return A2(_user$project$Update$updateRadio, msg, model);
 			case 'StudentChecked':
@@ -8757,7 +8753,7 @@ var _user$project$Update$update = F2(
 				var newEmployees = A2(
 					_elm_lang$core$List$filter,
 					function (e) {
-						return !_elm_lang$core$Native_Utils.eq(e.name, _p2._0.name);
+						return !_elm_lang$core$Native_Utils.eq(e.id, _p2._0.id);
 					},
 					model.employees);
 				return _elm_lang$core$Native_Utils.update(
