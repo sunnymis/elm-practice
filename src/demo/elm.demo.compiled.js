@@ -8462,26 +8462,6 @@ var _user$project$View$radioView = F4(
 				}
 			});
 	});
-var _user$project$View$projectView = F2(
-	function (model, project) {
-		return A2(
-			_elm_lang$html$Html$option,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$value(project.name),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$selected(
-						_elm_lang$core$Native_Utils.eq(model.employee.project, project.name)),
-					_1: {ctor: '[]'}
-				}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(project.name),
-				_1: {ctor: '[]'}
-			});
-	});
 var _user$project$View$addDefaultSelect = F2(
 	function (model, projectList) {
 		var $default = A2(
@@ -8502,6 +8482,26 @@ var _user$project$View$addDefaultSelect = F2(
 				_1: {ctor: '[]'}
 			});
 		return {ctor: '::', _0: $default, _1: projectList};
+	});
+var _user$project$View$projectView = F2(
+	function (model, project) {
+		return A2(
+			_elm_lang$html$Html$option,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$value(project.name),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$selected(
+						_elm_lang$core$Native_Utils.eq(model.employee.project, project.name)),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(project.name),
+				_1: {ctor: '[]'}
+			});
 	});
 var _user$project$View$view = function (model) {
 	return A2(

@@ -1,7 +1,6 @@
 module View exposing (view)
 
-{-| This library fills a bunch of important niches in Elm. A `Maybe` can help
-you with optional arguments, error handling, and records with optional fields.
+{-| The view for the Demo app.
 
 # Definition
 @docs view
@@ -14,16 +13,15 @@ import Html.Attributes exposing (..)
 import Model exposing (..)
 
 
-{-| Convert a list of characters into a String. Can be useful if you
-want to create a string primarly by consing, perhaps for decoding
-something.
+{-| Creates the root view from the model
 
-    view ['e','l','m'] == "elm"
+    view {employee = ..., project = ..., isEditing = ...}
 -}
 view : Model -> Html Msg
 view model =
     div [ class "container" ]
-        [ Html.form [ onSubmit Save ]
+        [ Html.form
+            [ onSubmit Save ]
             [ h2 [ class "ui header" ] [ text "Edit Employees" ]
             , input
                 [ class "input-field"
@@ -46,26 +44,45 @@ view model =
                 [ (radioView model FullTimeChecked "Full Time" FullTime)
                 , (radioView model StudentChecked "Student" Student)
                 ]
-            , button [ class "ui primary button", id "save", type_ "submit" ] [ text "SAVE" ]
+            , button
+                [ class "ui primary button"
+                , id "save"
+                , type_ "submit"
+                ]
+                [ text "SAVE" ]
             , table [] (employeeListHeader :: (List.map employeeList model.employees))
             ]
         ]
 
 
+{-| Returns an select option
+-}
+projectView : Model -> Project -> Html Msg
+projectView model project =
+    option
+        [ value project.name
+        , selected (model.employee.project == project.name)
+        ]
+        [ text project.name ]
+
+
+{-| Adds a default selection option to the select dropdown
+-}
 addDefaultSelect : Model -> List (Html Msg) -> List (Html Msg)
 addDefaultSelect model projectList =
     let
         default =
-            option [ value "", selected (model.project.name == "") ] [ text "Select Project" ]
+            option
+                [ value ""
+                , selected (model.project.name == "")
+                ]
+                [ text "Select Project" ]
     in
         default :: projectList
 
 
-projectView : Model -> Project -> Html Msg
-projectView model project =
-    option [ value project.name, selected (model.employee.project == project.name) ] [ text project.name ]
-
-
+{-| Creates a radio element
+-}
 radioView : Model -> Msg -> String -> EmploymentType -> Html Msg
 radioView model msg str et =
     label []
@@ -80,6 +97,8 @@ radioView model msg str et =
         ]
 
 
+{-| Adds a header row to the table
+-}
 employeeListHeader : Html Msg
 employeeListHeader =
     tr []
@@ -89,6 +108,8 @@ employeeListHeader =
         ]
 
 
+{-| Adds a row to the table
+-}
 employeeList : Employee -> Html Msg
 employeeList employee =
     tr []

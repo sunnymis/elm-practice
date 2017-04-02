@@ -13,9 +13,3 @@ main =
         , update = Update.update
         , view = View.view
         }
-
-
-
--- model
--- update
--- view
