@@ -8260,6 +8260,10 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _user$project$Model$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {employee: a, project: b, isEditing: c, uniqueID: d, employees: e, projects: f};
+	});
 var _user$project$Model$Employee = F4(
 	function (a, b, c, d) {
 		return {id: a, name: b, project: c, employmentType: d};
@@ -8267,10 +8271,6 @@ var _user$project$Model$Employee = F4(
 var _user$project$Model$Project = F2(
 	function (a, b) {
 		return {name: a, founder: b};
-	});
-var _user$project$Model$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {employee: a, project: b, isEditing: c, uniqueID: d, employees: e, projects: f};
 	});
 var _user$project$Model$Student = {ctor: 'Student'};
 var _user$project$Model$FullTime = {ctor: 'FullTime'};
@@ -8280,7 +8280,11 @@ var _user$project$Model$model = A6(
 	A2(_user$project$Model$Project, '', ''),
 	false,
 	0,
-	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A4(_user$project$Model$Employee, 999, 'Sunny', 'PiggyBank', _user$project$Model$FullTime),
+		_1: {ctor: '[]'}
+	},
 	{
 		ctor: '::',
 		_0: A2(_user$project$Model$Project, 'WhoZoo', 'Simon'),

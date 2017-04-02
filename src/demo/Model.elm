@@ -1,70 +1,16 @@
 module Model exposing (..)
 
-{-| This library fills a bunch of important niches in Elm. A `Maybe` can help
-you with optional arguments, error handling, and records with optional fields.
+{-| This is the model of the Demo app.
 
 # Definition
 @docs model
 
 # Types
-@docs EmploymentType, Employee, Project, Model, Msg
+@docs Employee, Project, EmploymentType, Msg, Model
 -}
 
 
-{-| A model
-
-    model ['e','l','m'] == "elm"
--}
-model : Model
-model =
-    Model
-        (Employee 0 "" "" FullTime)
-        (Project "" "")
-        False
-        0
-        []
-        [ (Project "WhoZoo" "Simon")
-        , (Project "CodePilot" "Ian")
-        , (Project "PiggyBank" "Tom")
-        , (Project "FreshTracks" "Matt")
-        , (Project "KnowThings" "AK")
-        ]
-
-
-{-| A model
-
-    employmenttype
--}
-type EmploymentType
-    = FullTime
-    | Student
-
-
-{-| Employee
-
-    employee
--}
-type alias Employee =
-    { id : Int
-    , name : String
-    , project : String
-    , employmentType : EmploymentType
-    }
-
-
-{-| Employment type
-
-    employmenttype
--}
-type alias Project =
-    { name : String
-    , founder : String
-    }
-
-
-{-| Employment type
-
-    employmenttype
+{-| The Model
 -}
 type alias Model =
     { employee : Employee
@@ -76,9 +22,50 @@ type alias Model =
     }
 
 
-{-| Employment type
+{-| Creates variable `model` to be of type Model, using the type constructor
+-}
+model : Model
+model =
+    Model
+        (Employee 0 "" "" FullTime)
+        (Project "" "")
+        False
+        0
+        [ Employee 999 "Sunny" "PiggyBank" FullTime ]
+        [ (Project "WhoZoo" "Simon")
+        , (Project "CodePilot" "Ian")
+        , (Project "PiggyBank" "Tom")
+        , (Project "FreshTracks" "Matt")
+        , (Project "KnowThings" "AK")
+        ]
 
-    employmenttype
+
+{-| An Employee
+-}
+type alias Employee =
+    { id : Int
+    , name : String
+    , project : String
+    , employmentType : EmploymentType
+    }
+
+
+{-| A Project
+-}
+type alias Project =
+    { name : String
+    , founder : String
+    }
+
+
+{-| A Union Type
+-}
+type EmploymentType
+    = FullTime
+    | Student
+
+
+{-| Message / Action
 -}
 type Msg
     = NameChange String
