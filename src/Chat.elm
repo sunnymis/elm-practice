@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 import WebSocket
 
 
-main : Program Never Model MyMsg
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -26,7 +26,7 @@ type alias Model =
     }
 
 
-init : ( Model, Cmd MyMsg )
+init : ( Model, Cmd Msg )
 init =
     ( Model "" [], Cmd.none )
 
@@ -35,13 +35,13 @@ init =
 -- update
 
 
-type MyMsg
+type Msg
     = Input String
     | Send
     | NewMessage String
 
 
-update : MyMsg -> Model -> ( Model, Cmd MyMsg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Input newContent ->
@@ -60,7 +60,7 @@ update msg model =
 -- subscriptions
 
 
-subscriptions : Model -> Sub MyMsg
+subscriptions : Model -> Sub Msg
 subscriptions model =
     WebSocket.listen "ws://echo.websocket.org" NewMessage
 
@@ -69,15 +69,25 @@ subscriptions model =
 -- view
 
 
-view : Model -> Html MyMsg
+view : Model -> Html Msg
 view model =
-    div []
-        [ input [ onInput Input, value model.input ] []
+    div [ divStyle ]
+        [ h1 [] [ text "WebSocket Example" ]
+        , input [ onInput Input, value model.input ] []
         , button [ onClick Send ] [ text "Send" ]
         , div [] (List.map viewMessage model.messages)
         ]
 
 
-viewMessage : String -> Html MyMsg
+viewMessage : String -> Html Msg
 viewMessage msg =
-    div [] [ text msg ]
+    div [] [ text ("Message Received: " ++ msg) ]
+
+
+divStyle : Attribute Msg
+divStyle =
+    style
+        [ ( "position", "relative" )
+        , ( "top", "10%" )
+        , ( "left", "40%" )
+        ]
