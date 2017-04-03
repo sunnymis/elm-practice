@@ -18,16 +18,6 @@ main =
 
 
 
--- Actions
-
-
-type Msg
-    = Increment
-    | Decrement
-    | Reset
-
-
-
 -- Model
 
 
@@ -38,6 +28,16 @@ type alias Model =
 model : Model
 model =
     0
+
+
+
+-- Actions
+
+
+type Msg
+    = Increment
+    | Decrement
+    | Reset
 
 
 
@@ -63,7 +63,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [ style [ ( "padding", "50px" ) ] ]
+    div []
         [ button [ type_ "button", onClick Increment ] [ text "Increment" ]
         , div [] [ text (toString model) ]
         , button [ type_ "button", onClick Decrement ] [ text "Decrement" ]
