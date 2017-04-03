@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "chokidar 'src/demo/*.elm' -c 'elm make src/demo/Demo.elm --warn --output src/demo/elm.demo.compiled.js' --initial",
-    "watchCC": "chokidar 'src/**/*.elm' -c 'elm make src/calorie-counter.elm --warn --output elm.compiled.js' --initial",
+    "watchAll": "chokidar 'src/**/*.elm' -c 'elm make src/FetchGif.elm --warn --output elm.compiled.js' --initial",
     "watchC": "chokidar 'src/Counter.elm' -c 'elm make src/Counter.elm --warn --output elm.compiled.js' --initial",
     "watchSK": "chokidar 'src/**/*.elm' -c 'elm make src/score-keeper/score-keeper.elm --warn --debug --output src/score-keeper/elm.compiled.js' --initial",
     "watch1": "chokidar 'src/**/*.elm' -c 'elm make src/ElmChallenges/Functions/Exercise1.elm --warn --output elm.compiled.js' --initial",

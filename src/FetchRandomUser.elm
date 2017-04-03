@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Http exposing (..)
-import Json.Decode as Decode
+import Json.Decode exposing (..)
 import Debug exposing (..)
 
 
@@ -31,12 +31,24 @@ type alias Model =
 type Msg
     = MorePlease
     | NewGif (Result Http.Error String)
-    | NewTopic String
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "Cats" "", getRandomGif "Cats" )
+    ( Model "Cats" "waiting.gif", Cmd.none )
+
+
+type alias RandomUser =
+    { gender : String
+    , picture : Picture
+    }
+
+
+type alias Picture =
+    { large : String
+    , medium : String
+    , thumbnail : String
+    }
 
 
 
@@ -57,9 +69,6 @@ update msg model =
                 Err _ ->
                     ( model, Cmd.none )
 
-        NewTopic newTopic ->
-            ( { model | topic = newTopic }, Cmd.none )
-
 
 
 -- view
@@ -69,9 +78,8 @@ view : Model -> Html Msg
 view model =
     div []
         [ h2 [] [ text model.topic ]
-        , input [ onInput NewTopic ] []
-        , button [ onClick MorePlease ] [ text "Get Gif!" ]
-        , img [ imgStyle, src model.gifUrl ] []
+        , img [ src model.gifUrl ] []
+        , button [ onClick MorePlease ] [ text "More Please!" ]
         ]
 
 
@@ -84,11 +92,19 @@ subscriptions model =
     Sub.none
 
 
+decodePicture : Decoder Picture
+decodePicture =
+    object2 Picture
+        ("large" := string)
+        ("medium" := string)
+        ("thumbnail" := string)
+
+
 getRandomGif : String -> Cmd Msg
 getRandomGif topic =
     let
         url =
-            "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" ++ topic
+            "https://randomuser.me/api/"
 
         request =
             Http.get url decodeGifUrl
@@ -98,11 +114,4 @@ getRandomGif topic =
 
 decodeGifUrl : Decode.Decoder String
 decodeGifUrl =
-    Decode.at [ "data", "image_url" ] Decode.string
-
-
-imgStyle : Attribute Msg
-imgStyle =
-    style
-        [ ( "display", "block" )
-        ]
+    Decode.at [ "results", "picture" ] Decode.string

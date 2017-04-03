@@ -8427,7 +8427,29 @@ var _user$project$View$employeeListHeader = A2(
 						_0: _elm_lang$html$Html$text('Employment Type'),
 						_1: {ctor: '[]'}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$th,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('dsf'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$th,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('dsf'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		}
 	});

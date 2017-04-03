@@ -105,6 +105,8 @@ employeeListHeader =
         [ th [] [ text "Employee" ]
         , th [] [ text "Project" ]
         , th [] [ text "Employment Type" ]
+        , th [] [ text "dsf" ]
+        , th [] [ text "dsf" ]
         ]
 
 
